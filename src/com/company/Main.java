@@ -4,9 +4,9 @@ public class Main {
 
     public enum Direction {
         UP,
+        RIGHT,
         DOWN,
-        LEFT,
-        RIGHT
+        LEFT
     }
 
     public static class Robot {
@@ -72,6 +72,15 @@ public class Main {
         }
     }
 
+    private static void setDirection(Robot robot, Direction direction) {
+        if (Math.abs(direction.ordinal() - robot.getDirection().ordinal()) >= 2) {
+            while (robot.getDirection() != direction) robot.turnLeft();
+        }
+        else {
+            while (robot.getDirection() != direction) robot.turnRight();
+        }
+    }
+
     public static void moveRobot(Robot robot, int toX, int toY) {
 
         // test print
@@ -80,17 +89,13 @@ public class Main {
 
         // move to X
         if (robot.getX() > toX) {
-            while (robot.getDirection() != Direction.LEFT) {
-                robot.turnRight();
-            }
+            setDirection (robot, Direction.LEFT);
             while (robot.getX() != toX) {
                 robot.stepForward();
             }
         } else {
             if (robot.getX() < toX) {
-                while (robot.getDirection() != Direction.RIGHT) {
-                    robot.turnRight();
-                }
+                setDirection (robot, Direction.RIGHT);
                 while (robot.getX() != toX) {
                     robot.stepForward();
                 }
@@ -99,17 +104,13 @@ public class Main {
 
         // move to Y
         if (robot.getY() > toY) {
-            while (robot.getDirection() != Direction.DOWN) {
-                robot.turnRight();
-            }
+            setDirection (robot, Direction.DOWN);
             while (robot.getY() != toY) {
                 robot.stepForward();
             }
         } else {
             if (robot.getY() < toY) {
-                while (robot.getDirection() != Direction.UP) {
-                    robot.turnRight();
-                }
+                setDirection (robot, Direction.UP);
                 while (robot.getY() != toY) {
                     robot.stepForward();
                 }
@@ -121,7 +122,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Robot robot = new Robot(-5, -9, Direction.UP);
+        Robot robot = new Robot(-5, 9, Direction.UP);
         moveRobot(robot, 18, 3);
     }
 }
