@@ -73,11 +73,23 @@ public class Main {
     }
 
     private static void setDirection(Robot robot, Direction direction) {
-        if (Math.abs(direction.ordinal() - robot.getDirection().ordinal()) >= 2) {
-            while (robot.getDirection() != direction) robot.turnLeft();
+        if (direction.ordinal() - robot.getDirection().ordinal() < 0) {
+            while (robot.getDirection() != direction) {
+                robot.turnLeft();
+
+                // тестовая печать
+                System.out.println("Поворачиваем влево");
+            }
+
         }
         else {
-            while (robot.getDirection() != direction) robot.turnRight();
+            while (robot.getDirection() != direction) {
+                robot.turnRight();
+
+                // тестовая печать
+                System.out.println("Поворачиваем вправо");
+            }
+
         }
     }
 
@@ -122,7 +134,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Robot robot = new Robot(-5, 9, Direction.UP);
-        moveRobot(robot, 18, 3);
+        Robot robot = new Robot(3, 3, Direction.LEFT);
+        moveRobot(robot, 5, 5);
     }
 }
